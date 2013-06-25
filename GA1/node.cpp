@@ -34,3 +34,9 @@ void node::print() {
 	}
 	printf("]");
 }
+
+char* node::to_string() {
+	sprintf(output, "%d (%2.2f:%2.2f)", this->id, this->location.x, this->location.y);
+	return output;
+
+}

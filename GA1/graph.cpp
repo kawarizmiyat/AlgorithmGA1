@@ -28,7 +28,7 @@ graph::~graph() {
 }
 
 void graph::print() {
-	printf("at %s \n", __FUNCTION__);
+	printf("at graph::%s \n", __FUNCTION__);
 
 	for (unsigned int i = 0; i < this->nodes.size(); i++) {
 		nodes.at(i).print();
@@ -92,16 +92,41 @@ graph graph::induce_graph(vector<int> ids) {
 	}
 
 	vector<point> points;
+	vector<double> weights;
 	for (unsigned int i = 0; i < indices.size(); i++) {
 		points.push_back(this->nodes.at(indices.at(i)).location);
+		weights.push_back(this->nodes.at(indices.at(i)).weight);
 	}
 
 	graph g;
 	g.nodes_range = this->nodes_range;
 	g.create_graph(points, &ids);
+
+
+	// copying the weights:
+	for (unsigned int j = 0; j < ids.size(); j++) {
+		for (unsigned int i = 0; i < g.nodes.size(); i++) {
+			if (g.nodes.at(i).id == ids.at(j)) {
+				g.nodes.at(i).weight = weights.at(j);
+			}
+		}
+	}
+
 	return g;
 
 }
+
+/*
+void graph::copy_weights(const graph& g) {
+
+	if (g.nodes.size() != this->nodes.size()) { return; }
+
+	for (int i = 0; i < g.nodes.size(); i++) {
+		this->nodes.at(i).weight = g.nodes.at(i).weight;
+	}
+
+}
+*/
 
 int graph::find_index(int id) {
 	for (unsigned int i = 0; i < this->nodes.size(); i++) {
@@ -136,6 +161,12 @@ void graph::interconnect_nodes() {
 		}
 
 	}
+
+	for (unsigned int i = 0; i < nodes.size(); i++ ) {
+		sort(nodes.at(i).list_neighbors.begin(),
+				nodes.at(i).list_neighbors.end());
+	}
+
 }
 
 
@@ -153,7 +184,6 @@ void graph::calculate_weight_nr() {
 vector<int> graph::maximal_set() {
 
 	printf("at %s \n", __FUNCTION__);
-
 
 	this->sort_by_weight();
 	vector<int> mis, visited;
@@ -205,7 +235,16 @@ void graph::sort_by_weight() {
 	sort(this->nodes.begin(), this->nodes.end(), weight_compare);
 	reverse(this->nodes.begin(), this->nodes.end());
 
+	printf("after sorting ! \n");
+	this->print();
 }
 
-bool weight_compare(node i, node j) { return (i.weight < j.weight); }
-bool point_y_compare(node i, node j) { 	return (i.location.y < j.location.y); }
+bool weight_compare(node i, node j) {
+	if (i.weight == j.weight) { return (i.id < j.id); }
+	return (i.weight < j.weight);
+}
+
+bool point_y_compare(node i, node j) {
+	if (i.location.y == j.location.y) { return (i.location.x < j.location.x); }
+	return (i.location.y < j.location.y);
+}

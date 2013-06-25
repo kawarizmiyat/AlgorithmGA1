@@ -5,8 +5,10 @@
  *      Author: ahmed
  */
 
-#include "element.h"
 #include <stdio.h>
+
+#include "element.h"
+#include "node.h"
 
 element::element() {
 	this->covered = false;
@@ -17,11 +19,11 @@ element::element() {
 element::~element() {
 }
 
-void element::add_covering_node(point& p) {
-	v.push_back(p.id);
-	points.push_back(p);
+void element::add_covering_node(node& n) {
+	v.push_back(n.id);
+	points.push_back(n.location);
 
-	id = p.id;
+	id = n.id;
 	if (id > max) {
 		max = id;
 	}

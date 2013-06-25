@@ -19,6 +19,7 @@ public:
 	node(const node& n);
 	virtual ~node();
 
+	char* to_string();
 	void print();
 
 	vector<int> list_neighbors;
@@ -26,6 +27,9 @@ public:
 	double weight;
 	point location;
 	int id;
+
+private:
+	char output[20];
 
 };
 

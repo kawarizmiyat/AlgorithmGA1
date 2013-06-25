@@ -31,7 +31,9 @@ public:
 	int find_index(int id);
 	void sort_by_weight();
 
+	// void copy_weights(const graph& g);
 	void calculate_weight_nr();
+
 
 	vector<int> maximal_set();
 

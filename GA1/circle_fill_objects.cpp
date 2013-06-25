@@ -183,7 +183,7 @@ void fill_circle(element** matrix, int xc, int yc, int r, point& p) {
 
 }
 
-void draw_pixel(int x, int y, element** matrix, point& p) {
+void draw_pixel(int x, int y, element** matrix, node& p) {
 
 	// printf("draw pixel at %d and %d \n", x, y);
 

@@ -9,8 +9,11 @@
 #define ELEMENT_H_
 
 #include <vector>
-#include "point.h"
 using namespace std;
+
+
+#include "point.h"
+#include "node.h"
 
 class element {
 public:
@@ -18,7 +21,7 @@ public:
 	virtual ~element();
 
 	// additional functions:
-	void add_covering_node(point& p);
+	void add_covering_node(node& p);
 	void set_covered(bool& c);
 	bool get_covered();
 	char* to_string();
