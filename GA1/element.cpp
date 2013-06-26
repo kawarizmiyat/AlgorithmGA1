@@ -20,6 +20,9 @@ element::~element() {
 }
 
 void element::add_covering_node(node& n) {
+
+	printf("at %s with node: %s \n", __FUNCTION__, n.to_string());
+
 	v.push_back(n.id);
 	points.push_back(n.location);
 

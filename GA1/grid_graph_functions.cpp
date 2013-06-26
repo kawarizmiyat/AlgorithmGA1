@@ -14,10 +14,10 @@ subelements_grid create_grid(graph& g) {
 
 
 	subelements_grid grid;
-	grid.length = 5;
-	grid.width = 5;
+	grid.length = 30;
+	grid.width = 30;
 
-	grid.set_interrogation_range(1);
+	grid.set_interrogation_range(5);
 	grid.init_grid();
 
 

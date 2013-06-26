@@ -68,12 +68,18 @@ void subelements_grid::draw_pixel(int x, int y, node& n) {
 	// printf("draw pixel at %d and %d \n", x, y);
 
 	//TODO: fix these confusions
-	if (x < 0 || x >= max_y|| y < 0 || y > max_x) { return; }
+	if (x < 0 || x >= max_y|| y < 0 || y >= max_x) { return; }
 
 
 	this->grid[x][y].covered = true;
 	this->grid[x][y].add_covering_node(n);
-	// add if to matrix[x][y].add_covered(id);
+}
+
+bool subelements_grid::is_in(vector<int> list, int id) {
+	for (unsigned int i = 0; i < list.size(); i ++) {
+		if (list.at(i) == id) return true;
+	}
+	return false;
 }
 
 void subelements_grid::print_grid() {

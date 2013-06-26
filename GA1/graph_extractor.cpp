@@ -27,7 +27,7 @@ void extract_points(vector<point>& points, char* file_name) {
 	f = fopen(buffer, "r");
 	if (!f) {
 		printf("error: file could not be open \n");
-		return;
+		abort();
 	}
 
 
@@ -78,7 +78,7 @@ void extract_vv_int(vv_int& graph, char* file_name) {
 	f = fopen(buffer, "r"); 	
 	if (!f) { 
 		printf("error: file could not be open \n");
-		return;
+		abort();
 	}
 
 
@@ -182,4 +182,24 @@ int getline(FILE* f, char line[], int max)
 
 	line[nch] = '\0';
 	return nch;
+}
+
+
+void print_vv_int(vv_int& list) {
+	vector<int>::iterator jt;
+	vector<vector<int> >::iterator it = list.begin();
+	while (it != list.end()) {
+
+		// jt = it->begin();
+		jt = (*it).begin();
+		while (jt != (*it).end()) {
+			printf("%d ", *jt);
+			jt ++;
+		}
+		printf("\n");
+
+		it ++;
+	}
+
+
 }

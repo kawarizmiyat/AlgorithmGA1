@@ -19,7 +19,7 @@ void extract_vv_int(vv_int& , char* filename);
 bool tokenize(char* , vector<string>* );
 void trim(char* input, char* output); 
 int getline(FILE* f, char line[], int max); 
-
+void print_vv_int(vv_int& list) ;
 
 
 

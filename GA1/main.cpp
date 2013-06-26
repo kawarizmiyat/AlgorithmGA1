@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 
@@ -20,6 +21,9 @@ using namespace std;
 #include "graph_extractor.h"
 #include "subelements_grid.h"
 #include "grid_graph_functions.h"
+#include "range.h"
+#include "ega_algorithm.h"
+// global struct:
 
 
 // global functions
@@ -28,13 +32,21 @@ void test_graph_mis();
 void create_some_points(vector<point>*, int);
 void main_run_circle_fill();
 graph split_graph_y_axis(double b_range, double e_range, graph& g);
+void test_dwis_ptas();
 
+
+// global variables:
+const int const_k = 2;
 
 int main() {
 
+
+	// test_dwis_ptas();
 	test_graph_mis();
 	// main_run_circle_fill();
 }
+
+
 
 void main_run_circle_fill() {
 
@@ -91,12 +103,15 @@ void main_run_circle_fill() {
 
 void test_graph_mis() {
 
+	vector<vector<int> > ntags;
 	vector<point> points;
-	vector<int> mis;
+
 	// create_some_points(&points, 5);
 
-	extract_points(points, "graphs/sample_points_2.txt");
+	extract_points(points, "./graphs/sample_points_3.txt");
+	extract_vv_int(ntags, "./graphs/sample_tags_3.txt");
 
+	print_vv_int(ntags);
 
 	printf("printing points \n");
 	for (unsigned int i = 0; i < points.size(); i++) {
@@ -104,43 +119,36 @@ void test_graph_mis() {
 	}
 
 	graph g;
-	g.nodes_range = 1.5;
+	g.nodes_range = 10;
+	g.interrogation_range = 5;
 	g.create_graph(points);
 
-	subelements_grid gc = create_grid(g);
-	calculate_grid_weights(g, gc);
+	// subelements_grid gc = create_grid(g);
+
+	g.assign_tags(ntags);
+	g.calculate_weight_nt();
+
 	g.print();
 
-	mis = g.maximal_set();
-	printf("mis: ( ");
-	for (unsigned int i = 0; i < mis.size(); i++) {
-		printf("%d ", mis[i]);
-	}
-	printf(")\n");
 
+	vector<vector<int> > colored_nodes;
+	algorithm_ga1(g, colored_nodes);
 
-
-	graph split_graph = split_graph_y_axis(1.00, 3.00, g);
-
-
-	printf("the split graph (1.00, 2.00) \n");
-	split_graph.print();
-
-	printf("weights \n");
-	for (unsigned int i = 0; i < split_graph.nodes.size(); i++) {
-		printf("w(%d): %f \n", split_graph.nodes.at(i).id,
-				split_graph.nodes.at(i).weight);
+	printf("colored nodes: \n");
+	for (unsigned int i = 0; i < colored_nodes.size(); i ++ ) {
+		printf("c(%d) :", i);
+		for (unsigned int j = 0; j < colored_nodes[i].size(); j++) {
+			printf("%d ", colored_nodes[i][j]);
+		}
+		printf("\n");
 	}
 
-	mis = split_graph.maximal_set();
 
-	printf("mis: ( ");
-	for (unsigned int i = 0; i < mis.size(); i++) {
-		printf("%d ", mis[i]);
-	}
-	printf(")\n");
+
 }
 
+
+// note: we don't need this function anymore. We have one in graph.
 graph split_graph_y_axis(double b_range, double e_range, graph& g) {
 
 	vector<int> ids;

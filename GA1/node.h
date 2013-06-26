@@ -24,6 +24,10 @@ public:
 
 	vector<int> list_neighbors;
 	vector<bool> adj_neighbors;
+	vector<int> tag_neighbors;
+	vector<int> active_tag_neighbors;
+	vector<int> active_list_neighbors;
+
 	double weight;
 	point location;
 	int id;

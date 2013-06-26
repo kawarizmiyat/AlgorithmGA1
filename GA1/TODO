@@ -1,0 +1,31 @@
+TODO: 
+we have to implement EGA-1. We will not follow the probalistic model. 
+the weight of a reader w(v) is the number of tags in the subelements it cover. 
+
+how to find this ? 
+
+
+A naive (or one) way is to find the tag-neighbors graph. That is, (t, NR(t)) for each t in T. 
+NR(t) is necessarily a subelement. For each occurence of NR(t), increase the number of 
+tags in this subelement by 1. 
+
+Ok. this comparison is done as follows. 
+First sort subelements and NR(t)'s lexigraphically. That is, the integers in each 
+subelement are sorted descendingly. 
+1) the sets with larger size first, 
+2) if two sets have the same size, then lexigraphical comparison is performed. 
+
+i.e. for (int i = 0; i < lst.size; i++) {
+		if (lst1[i] > lst2[i]) return true; 
+		else if (lst1[i] < lst2[i]) return false; 
+		else continue;
+	 }
+		
+	 return true; 
+	 
+	 
+find number of occurences of each NR(t). Once NR(t) == SElement, copy that into that ! 
+
+
+NOTE: NR(t) is a subset of SElements ! a point (tag) is in a subelement(x1, .. xn) 
+if it is covered by x1, .., xn. 

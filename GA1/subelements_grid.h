@@ -48,6 +48,9 @@ public:
 
 	vector<element> all_subelements;
 
+private:
+	bool is_in(vector<int>, int);
+
 };
 
 #endif /* SUBELEMENTS_GRID_H_ */
